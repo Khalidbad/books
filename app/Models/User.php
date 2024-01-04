@@ -13,10 +13,14 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function boo()
-    {
-        return $this->hasMany(Book::class);
-    }
+    // Book.php
+
+
+public function books()
+{
+    return $this->belongsToMany(Book::class);
+}
+
 
     // ... other methods
 

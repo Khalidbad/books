@@ -9,11 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    
-    public function up()
+   // create_book_user_table.php
+
+public function up()
 {
-    Schema::table('books', function (Blueprint $table) {
-        $table->foreignId('users_id')->constrained();
+    Schema::create('book_user', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('user_id')->constrained();
+        $table->foreignId('book_id')->constrained();
+        $table->timestamps();
     });
 }
 
@@ -23,8 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('books', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('book_user');
     }
 };

@@ -47,7 +47,13 @@ Auth::routes();
 Route::resource('books', BookController::class);
 // web.php
 
+Route::get('/viewCard', [BookController::class, 'viewCard'])->name('viewCard');
+// web.php
 Route::post('/addToCard/{book}', [BookController::class, 'addToCard'])->name('addToCard');
-Route::get('/viewCard', [UserController::class, 'viewCard'])->name('viewCard');
+// web.php
+
+Route::delete('/removeFromCard/{book}', [BookController::class, 'destroy'])->name('removeFromCard');
+
+
 
 

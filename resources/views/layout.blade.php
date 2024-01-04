@@ -25,7 +25,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href=""{{ route('books.index')}}>Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
@@ -48,6 +48,8 @@
             
                 <ul class="navbar-nav ms-auto">
                     <!-- Authentication Links -->
+                    <a class="btn btn-primary" href="{{ route('viewCard') }}" role="button">Cards</a>
+
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item">
@@ -85,7 +87,13 @@
         </div>
       </nav>
     
-    
+    <!-- layouts/app.blade.php or similar -->
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
+
     <div class="content">
         
         @yield('content')         

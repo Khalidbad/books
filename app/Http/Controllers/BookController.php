@@ -4,6 +4,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\User;
+
 use Database\Seeders\BooksTableSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -22,20 +24,44 @@ class BookController extends Controller
     {
         $books = Book::all();
         
-                
-
-
-
         return view('index', compact('books'));
     }
-    
-    public function addToCard(Request $request, Book $book)
-    {
-        // Add the selected book to the user's card
-        auth()->user()->boo()->attach($book->id);
+    // BookController.php
 
-        return redirect()->route('books.index')->with('success', 'Book added to your card successfully!');
-    }
+  // Make sure to import the User model
+
+public function viewCard()
+{
+    // Retrieve the authenticated user
+    $user = auth()->user();
+
+    // Retrieve books associated with the user
+    $booksInCard = $user->books;
+
+    // Return the view with the books
+    return view('viewCard', compact('booksInCard'));
+
+}
+// BookController.php
+public function addToCard(Request $request, Book $book)
+{
+    // Add the selected book to the user's card
+    auth()->user()->books()->attach($book->id);
+
+    return redirect()->route('books.index')->with('success', 'Book added to your card successfully!');
+}
+public function destroy(Book $book)
+{
+    // Remove the selected book from the user's card
+    auth()->user()->books()->detach($book->id);
+
+
+    return redirect()->route('viewCard')->with('success', 'Book removed from your card successfully!');
+}
+
+
+    
+    
   
 
     /**
@@ -51,8 +77,8 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
+       
 
     /**
      * Display the specified resource.
@@ -81,8 +107,5 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
-    {
-        //
-    }
+    
 }

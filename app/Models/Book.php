@@ -9,14 +9,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    // User.php
+
+
+public function users()
+{
+    return $this->belongsToMany(User::class);
+}
+   
     
     protected $fillable = ['title', 'description', 'cover_image_path', 'price'];
 
-    
+  
 }
 
